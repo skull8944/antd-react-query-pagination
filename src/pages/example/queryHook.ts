@@ -8,12 +8,13 @@ import type { ExampleRecord } from './_types';
 
 export const QueryKeys = QueryUtil.getQueryKeys('Example', ['search']);
 
-export const useSearchQuery: PaginationQueryHook<ExampleRecord> = (req) => {
+export const useSearchQuery: PaginationQueryHook<ExampleRecord> = (req, options) => {
   const [key] = QueryKeys.search;
   QueryKeys.search = [key, req];
 
   return useQuery({
     queryKey: QueryKeys.search,
     queryFn: (signal) => service.search(req, signal),
+    options
   });
 };
